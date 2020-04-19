@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:alpine
 
 ENV PLEX_SECTION=Anime \
     PLEX_URL=localhost \
