@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:alpine
 
 ENV PLEX_SECTION=Anime \
     PLEX_URL=localhost \
@@ -9,8 +9,7 @@ ENV PLEX_SECTION=Anime \
 
 ENV PATH="${PATH}:~/.local/bin"
 
-RUN apt-get update &&\
-    apt-get install -y wget unzip &&\
+RUN apk add wget unzip &&\
     wget https://github.com/RickDB/PlexAniSync/archive/master.zip &&\
     unzip master.zip &&\
     rm master.zip &&\
