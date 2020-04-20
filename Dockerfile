@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:latest
 
 ENV PLEX_SECTION=Anime \
     PLEX_URL=localhost \
@@ -9,7 +9,8 @@ ENV PLEX_SECTION=Anime \
 
 ENV PATH="${PATH}:~/.local/bin"
 
-RUN apk add wget unzip &&\
+RUN apt-get update &&\
+    apt-get install -y wget unzip &&\
     wget https://github.com/RickDB/PlexAniSync/archive/master.zip &&\
     unzip master.zip &&\
     rm master.zip &&\
@@ -21,5 +22,3 @@ RUN apk add wget unzip &&\
 COPY runsync.sh settingsupdater.py ./
 
 RUN chmod +x /runsync.sh
-
-CMD ["/runsync.sh"]
