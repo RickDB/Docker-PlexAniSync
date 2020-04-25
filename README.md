@@ -8,11 +8,15 @@ A docker version of [PlexAniSync](https://github.com/RickDB/PlexAniSync) based o
   
 </div>
 
+# Example usage
+
+`docker run plexanisync --env PLEX_SECTION=Anime --env PLEX_URL=http://127.0.0.1:32400 --env PLEX_TOKEN=SomePlexToken --env ANI_USERNAME=SomeUser --env ANI_TOKEN=SomeToken --env INTERVAL=3600`
+
 # Environment Variables
 | ID 	| Default 	|  Required 	| Note 	|
 |---------------------	|-----------	|-----------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------	|
 | PLEX_SECTION 	| Anime 	| ✅ 	| The library where your anime resides 	|
-| PLEX_URL 	| localhost 	| ✅ 	| The address to your Plex 	|
+| PLEX_URL 	| localhost 	| ✅ 	| The address to your Plex Media Server, for example: http://127.0.0.1:32400 	|
 | PLEX_TOKEN 	| - 	| ✅ 	| Follow [this guide](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) 	|
 | ANI_USERNAME 	| - 	| ✅ 	| Your [AniList.co](http://www.anilist.co) username 	|
 | ANI_TOKEN 	| - 	| ✅ 	| Get it [here](https://anilist.co/api/v2/oauth/authorize?client_id=1549&response_type=token) 	|
