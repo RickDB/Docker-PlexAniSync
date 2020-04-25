@@ -13,8 +13,8 @@ config['PLEX'] = {
 config['ANILIST'] = {
 	'username': os.environ.get('ANI_USERNAME'),
 	'access_token': os.environ.get('ANI_TOKEN'),
-	'plex_episode_count_priority':False,
-	'skip_list_update':False
+	'plex_episode_count_priority': os.environ.get('PLEX_EPISODE_COUNT_PRIORITY', False),
+	'skip_list_update': os.environ.get('SKIP_LIST_UPDATE', False),
 }
 
 with open('/plexanisync/settings.ini', 'w') as configfile:
