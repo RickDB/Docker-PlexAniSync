@@ -8,9 +8,24 @@ A docker version of [PlexAniSync](https://github.com/RickDB/PlexAniSync) based o
   
 </div>
 
-# Example usage
+## Usage
 
-`docker run plexanisync --env PLEX_SECTION=Anime --env PLEX_URL=http://127.0.0.1:32400 --env PLEX_TOKEN=SomePlexToken --env ANI_USERNAME=SomeUser --env ANI_TOKEN=SomeToken --env INTERVAL=3600`
+### docker
+
+```
+docker create \
+  --name=plexanisync \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e PLEX_SECTION=Anime \
+  -e PLEX_URL=http://127.0.0.1:32400 \
+  -e PLEX_TOKEN=SomePlexToken \
+  -e ANI_USERNAME=SomeUser \
+  -e ANI_TOKEN=SomeToken \
+  -e INTERVAL=3600 \
+  --restart unless-stopped \
+  rickdb/plexanisync
+```
 
 # Environment Variables
 | ID 	| Default 	|  Required 	| Note 	|
