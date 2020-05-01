@@ -12,6 +12,7 @@ A docker version of [PlexAniSync](https://github.com/RickDB/PlexAniSync) based o
 
 ### docker
 
+Generic x64 systems (AMD / Intel)
 ```
 docker create \
   --name=plexanisync \
@@ -24,9 +25,24 @@ docker create \
   -e ANI_TOKEN=SomeToken \
   -e INTERVAL=3600 \
   --restart unless-stopped \
-  rickdb/plexanisync
+  rickdb/plexanisync:latest
 ```
 
+ARM based systems (i.e. Raspberry Pi)
+```
+docker create \
+  --name=plexanisync \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e PLEX_SECTION=Anime \
+  -e PLEX_URL=http://127.0.0.1:32400 \
+  -e PLEX_TOKEN=SomePlexToken \
+  -e ANI_USERNAME=SomeUser \
+  -e ANI_TOKEN=SomeToken \
+  -e INTERVAL=3600 \
+  --restart unless-stopped \
+  rickdb/plexanisync:latest
+  
 # Environment Variables
 | ID 	| Default 	|  Required 	| Note 	|
 |---------------------	|-----------	|-----------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------	|
