@@ -41,7 +41,7 @@ docker create \
   -e ANI_TOKEN=SomeToken \
   -e INTERVAL=3600 \
   --restart unless-stopped \
-  rickdb/plexanisync:latest
+  rickdb/plexanisync:arm
   
 # Environment Variables
 | ID 	| Default 	|  Required 	| Note 	|
