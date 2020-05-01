@@ -25,7 +25,8 @@ docker create \
   -e ANI_TOKEN=SomeToken \
   -e INTERVAL=3600 \
   --restart unless-stopped \
-  rickdb/plexanisync:latest
+  rickdb/plexanisync:latest \
+  /runsync.sh
 ```
 
 ARM based systems (i.e. Raspberry Pi)
@@ -41,7 +42,8 @@ docker create \
   -e ANI_TOKEN=SomeToken \
   -e INTERVAL=3600 \
   --restart unless-stopped \
-  rickdb/plexanisync:arm
+  rickdb/plexanisync:arm \
+  /runsync.sh
   
 # Environment Variables
 | ID 	| Default 	|  Required 	| Note 	|
