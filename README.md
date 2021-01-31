@@ -12,49 +12,39 @@ A docker version of [PlexAniSync](https://github.com/RickDB/PlexAniSync) based o
 
 ### docker
 
-Generic x64 systems (AMD / Intel)
 ```
-docker create \
+docker run -d \
   --name=plexanisync \
-  -e PUID=1000 \
-  -e PGID=1000 \
+  --restart unless-stopped \
   -e PLEX_SECTION=Anime \
   -e PLEX_URL=http://127.0.0.1:32400 \
   -e PLEX_TOKEN=SomePlexToken \
   -e ANI_USERNAME=SomeUser \
   -e ANI_TOKEN=SomeToken \
   -e INTERVAL=3600 \
-  --restart unless-stopped \
-  rickdb/plexanisync:latest \
-  /runsync.sh
+  -v /etc/localtime:/etc/localtime:ro \
+  rickdb/plexanisync:latest
 ```
 
-ARM based systems (i.e. Raspberry Pi)
+### Environment Variables
+
+| ID                          | Default                  | Required | Note                                                                                                                                                                         |
+| --------------------------- | ------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PLEX_SECTION                | Anime                    | [x]      | The library where your anime resides                                                                                                                                         |
+| PLEX_URL                    | http://127.0.0.1:32400   | [x]      | The address to your Plex Media Server, for example: http://127.0.0.1:32400                                                                                                   |
+| PLEX_TOKEN                  | -                        | [x]      | Follow [this guide](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)                                                                |
+| ANI_USERNAME                | -                        | [x]      | Your [AniList.co](http://www.anilist.co) username                                                                                                                            |
+| ANI_TOKEN                   | -                        | [x]      | Get it [here](https://anilist.co/api/v2/oauth/authorize?client_id=1549&response_type=token)                                                                                  |
+| INTERVAL                    | 3600                     | [x]      | The time in between syncs                                                                                                                                                    |
+| PLEX_EPISODE_COUNT_PRIORITY | -                        | [ ]      | Plex episode watched count will take priority over AniList (default = False)                                                                                                 |
+| SKIP_LIST_UPDATE            | -                        | [ ]      | If set to True it will NOT update your AniList which is useful if you want to do a test run to check if everything lines up properly. (default = False)
+
+### Custom mappings
+
+In order to provide a [custom_mappings.yaml file](https://github.com/RickDB/PlexAniSync#custom-anime-mapping), mount the file on your host to `/plexanisync/custom_mappings.yaml` like this:
+
 ```
-docker create \
-  --name=plexanisync \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  -e PLEX_SECTION=Anime \
-  -e PLEX_URL=http://127.0.0.1:32400 \
-  -e PLEX_TOKEN=SomePlexToken \
-  -e ANI_USERNAME=SomeUser \
-  -e ANI_TOKEN=SomeToken \
-  -e INTERVAL=3600 \
-  --restart unless-stopped \
-  rickdb/plexanisync:arm \
-  /runsync.sh
+-v /path/to/your/custom_mappings.yaml:/plexanisync/custom_mappings.yaml
 ```
 
-# Environment Variables
-| ID 	| Default 	|  Required 	| Note 	|
-|---------------------	|-----------	|-----------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| PLEX_SECTION 	| Anime 	| ✅ 	| The library where your anime resides 	|
-| PLEX_URL 	| localhost 	| ✅ 	| The address to your Plex Media Server, for example: http://127.0.0.1:32400 	|
-| PLEX_TOKEN 	| - 	| ✅ 	| Follow [this guide](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) 	|
-| ANI_USERNAME 	| - 	| ✅ 	| Your [AniList.co](http://www.anilist.co) username 	|
-| ANI_TOKEN 	| - 	| ✅ 	| Get it [here](https://anilist.co/api/v2/oauth/authorize?client_id=1549&response_type=token) 	|
-| INTERVAL 	| 3600 	| ✅ 	| The time in between syncs 	|
-| CUSTOM_MAPPINGS 	| - 	| ⬜️  	| Specifiy local file or URL to a text file containing content for a [custom_mappings.yaml](https://github.com/RickDB/PlexAniSync/blob/master/custom_mappings.yaml.example) file 	|
-| PLEX_EPISODE_COUNT_PRIORITY 	| - 	| ⬜️  	| Plex episode watched count will take priority over AniList (default = False) 	|
-| SKIP_LIST_UPDATE 	| - 	| ⬜️  	| If set to True it will NOT update your AniList which is useful if you want to do a test run to check if everything lines up properly. (default = False) 	|
+You can modify the file on the host system anytime and it will be used during the next run. Restarting the container is not necessary.
