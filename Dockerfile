@@ -1,7 +1,13 @@
-FROM python:latest
+FROM python:3.9-alpine
+
+RUN apk add --no-cache --update \
+    ca-certificates \
+    tzdata \
+    && update-ca-certificates \
+    && rm -rf /root/.cache
 
 ENV PLEX_SECTION=Anime \
-    PLEX_URL=localhost \
+    PLEX_URL=http://127.0.0.1:32400 \
     PLEX_TOKEN='' \
     ANI_USERNAME='' \
     ANI_TOKEN='' \
@@ -9,16 +15,16 @@ ENV PLEX_SECTION=Anime \
 
 ENV PATH="${PATH}:~/.local/bin"
 
-RUN apt-get update &&\
-    apt-get install -y wget unzip &&\
-    wget https://github.com/RickDB/PlexAniSync/archive/master.zip &&\
-    unzip master.zip &&\
-    rm master.zip &&\
-    mv /PlexAniSync-master /plexanisync &&\
-    cd /plexanisync &&\
-    python3 -m pip install -r requirements.txt &&\
-    cd ..
+RUN apk add --no-cache --update --virtual build-dependencies wget unzip && \
+    wget -q https://github.com/RickDB/PlexAniSync/archive/master.zip && \
+    unzip master.zip && \
+    rm master.zip && \
+    mv /PlexAniSync-master /plexanisync && \
+    cd /plexanisync && \
+    python3 -m pip install -r requirements.txt && \
+    cd .. && \
+    apk del build-dependencies
 
-COPY runsync.sh settingsupdater.py ./
-
-RUN chmod +x /runsync.sh
+ADD run/* /plexanisync/
+RUN chmod +x /plexanisync/*.sh
+CMD ["/plexanisync/runsync.sh"]
