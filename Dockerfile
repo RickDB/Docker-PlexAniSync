@@ -26,5 +26,4 @@ RUN apk add --no-cache --update --virtual build-dependencies wget unzip && \
     apk del build-dependencies
 
 ADD run/* /plexanisync/
-RUN chmod +x /plexanisync/*.sh
 CMD ["/plexanisync/runsync.sh"]
