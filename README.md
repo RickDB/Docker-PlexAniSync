@@ -4,7 +4,7 @@ A docker version of [PlexAniSync](https://github.com/RickDB/PlexAniSync) based o
 
 <div>
   
-  [![Build Status](https://img.shields.io/docker/cloud/build/rickdb/plexanisync.svg)](https://hub.docker.com/r/rickdb/plexanisync)
+  [![Docker Pulls](https://img.shields.io/docker/pulls/rickdb/plexanisync)](https://hub.docker.com/r/rickdb/plexanisync)
   
 </div>
 
