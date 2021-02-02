@@ -20,17 +20,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Set up QEMU
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      -
-        name: Prepare Tags
+      - name: Prepare Tags
         id: prep
         run: |
           DOCKER_IMAGE=${{ secrets.DOCKERHUB_REPOSITORY }}
@@ -57,14 +53,12 @@ jobs:
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
           echo ${TAGS}
-      -
-        name: Login to DockerHub
+      - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
+      - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -72,3 +66,12 @@ jobs:
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le
           push: true
           tags: ${{ steps.prep.outputs.tags }}
+      
+      #  enable when https://github.com/docker/roadmap/issues/115 is done     
+      #- name: Push README
+      #  uses: meeDamian/sync-readme@v1.0.6
+      #  with:
+      #    user: ${{ secrets.DOCKERHUB_USERNAME }}
+      #    pass: ${{ secrets.DOCKERHUB_TOKEN }}
+      #    slug: ${{ secrets.DOCKERHUB_REPOSITORY }}
+      #    description: true
