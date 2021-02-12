@@ -2,9 +2,9 @@ FROM python:3.9-alpine
 
 RUN apk add --no-cache --update \
     ca-certificates \
-    tzdata \
-    && update-ca-certificates \
-    && rm -rf /root/.cache
+    tzdata
+RUN update-ca-certificates
+RUN rm -rf /root/.cache
 
 ENV PLEX_SECTION=Anime \
     PLEX_URL=http://127.0.0.1:32400 \
