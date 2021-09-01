@@ -17,8 +17,8 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: plexanisync
+  # rickdb/plexanisync
+  IMAGE_NAME: ${{ github.repository_owner }}/plexanisync
 
 jobs:
   build:
