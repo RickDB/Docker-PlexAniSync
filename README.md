@@ -1,12 +1,5 @@
 # Docker-PlexAniSync
-
-A docker version of [PlexAniSync](https://github.com/RickDB/PlexAniSync) based on [Thundernerd's docker](https://github.com/Thundernerd/Docker-PlexAniSync)
-
-<div>
-  
-  [![Docker Pulls](https://img.shields.io/docker/pulls/rickdb/plexanisync)](https://hub.docker.com/r/rickdb/plexanisync)
-  
-</div>
+![Docker](https://github.com/rickdb/Docker-PlexAniSync/actions/workflows/docker-publish.yml/badge.svg)
 
 ## Usage
 
