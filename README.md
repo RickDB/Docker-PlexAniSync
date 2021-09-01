@@ -16,7 +16,7 @@ docker run -d \
   -e ANI_TOKEN=SomeToken \
   -e INTERVAL=3600 \
   -v /etc/localtime:/etc/localtime:ro \
-  rickdb/plexanisync:latest
+  ghcr.io/rickdb/plexanisync:latest
 ```
 
 ### Environment Variables
